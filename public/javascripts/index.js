@@ -18,23 +18,28 @@ $(function(){
     
             $('#enviar').unbind('click').click(function(){
 
-                var data2send = {
-                    text: $("#text").val(),
-                    date: $('.datepicker').val(),
-                    timestamp: $.now()
-                };
-        
-                $.ajax({
-                    url: 'getDay',
-                    type: 'POST',
-                    data: data2send,
-                    dataType: 'json',
-                    success: function(res){
-                        console.log(res)
-                    }
-                })
+                if($("#text").val().trim() !== ''){
+                    
+                    var data2send = {
+                        text: $("#text").val(),
+                        date: $('.datepicker').val(),
+                        timestamp: $.now()
+                    };
+            
+                    $.ajax({
+                        url: 'getDay',
+                        type: 'POST',
+                        data: data2send,
+                        dataType: 'json',
+                        success: function(res){
+                            console.log(res)
+                        }
+                    })
+    
+                    $('.datepicker').datepicker().trigger('changeDate');
+                }
 
-                $('.datepicker').datepicker().trigger('changeDate');
+
         
             });
     

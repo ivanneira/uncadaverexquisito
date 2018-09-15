@@ -60,7 +60,7 @@ router.get('/', function(req, res, next) {
 
             '    <div class="form-group">'+
             '        <label class="text-muted font-italic" for="text">¿Cómo empieza?</label>'+
-            '        <textarea class="form-control" id="text" maxlength="2000"></textarea>'+
+            '        <textarea class="form-control" id="text" maxlength="2000" rows="10"></textarea>'+
             '    </div>'+
             '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
 
@@ -92,7 +92,7 @@ router.get('/', function(req, res, next) {
     
             '    <div class="form-group">'+
             '        <label class="text-muted font-italic" for="text">¿Cómo sigue?</label>'+
-            '        <textarea class="form-control outer" id="text" maxlength="2000"></textarea>'+
+            '        <textarea class="form-control outer" id="text" maxlength="2000" rows="10"></textarea>'+
             '    </div>'+
             '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
 
