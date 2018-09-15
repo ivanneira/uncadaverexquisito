@@ -11,10 +11,6 @@ var getDay = require('./routes/getDay');
 
 var app = express();
 
-// Type 3: Persistent datastore with automatic loading
-var Datastore = require('nedb')
-  , db = new Datastore({ filename: 'DATA.DB', autoload: true });
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
