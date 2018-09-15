@@ -7,12 +7,26 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var getDay = require('./routes/getDay');
 
 var app = express();
+
+// Type 3: Persistent datastore with automatic loading
+var Datastore = require('nedb')
+  , db = new Datastore({ filename: 'DATA.DB', autoload: true });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+//ruta de jquery
+app.use(express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+
+//ruta de bootstrap
+app.use(express.static(path.join(__dirname, '/node_modules/bootstrap/dist')));
+
+//ruta de bootstrap-datepicker
+app.use(express.static(path.join(__dirname, '/node_modules/bootstrap-datepicker/dist')));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/getDay', getDay);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
