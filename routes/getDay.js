@@ -71,48 +71,13 @@ router.get('/', function(req, res, next) {
             //console.log(docs)
 
             if(docs.length == 0){
-                var htmlString =
-
-                '    <div class="form-group">'+
-                '        <label class="text-muted font-italic" for="text">¿Cómo empieza?</label>'+
-                '        <textarea class="form-control" id="text" maxlength="2000" rows="10"></textarea>'+
-                '    </div>'+
-                '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
-
-                res.send(htmlString);
+                res.send(false);
             }else{
-                format(docs);
+                res.send(docs)
             }
             
         });
 
-    }
-
-    function format(docs){
-
-        var htmlString = "";
-
-        for(var index in docs){
-
-            htmlString += 
-                '<div class="card">' +
-                '    <div class="card-body">' +
-                '        <p class="card-text text-dark text-justify">' + docs[index].body + '</p>' +
-                '    </div>' +
-                '</div>' +
-                '<br/>';
-        }
-
-        htmlString +=
-    
-            '    <div class="form-group">'+
-            '        <label class="text-muted font-italic" for="text">¿Cómo sigue?</label>'+
-            '        <textarea class="form-control outer" id="text" maxlength="2000" rows="10"></textarea>'+
-            '    </div>'+
-            '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
-
-        //console.log(htmlString)
-        res.send(htmlString)
     }
 
 });
@@ -120,23 +85,25 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res) {
 
-    
     var text = req.param('text');
     var date = req.param('date');
     var timestamp = req.param('timestamp');
-
 
     db.insert({
         date: date,
         body: text,
         active: true,
         timestamp: timestamp
-    }),function(err){
-   
-        res.send(!!err);
-        
-    };
+    },function(err,newDoc){
 
+        //res.send(!!err);
+        if(err){
+            res.send(false)
+        }else{
+            res.send(true)
+        }
+        
+    });
     
 });
 
@@ -146,7 +113,7 @@ router.delete('/', function(req, res, next) {
     var date = req.param('date');
     var timestamp = req.param('timestamp');
 
-    var response = "Nothing removed"
+    var response = "Nothing removed";
 
     if(typeof(date) !== 'undefined'){
 
