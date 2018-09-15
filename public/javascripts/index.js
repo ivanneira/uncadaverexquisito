@@ -12,10 +12,11 @@ $(function(){
             method: 'GET'
         })
         .done(function(data){
+            console.log(data)
     
             $('.history').empty().append(data);
     
-            $('#enviar').click(function(){
+            $('#enviar').unbind('click').click(function(){
 
                 var data2send = {
                     text: $("#text").val(),

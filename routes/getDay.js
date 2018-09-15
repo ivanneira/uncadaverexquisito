@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 
     var date = req.query.date;
 
-      
 /*
     db.find({date: date}, function(err, docs){
 
@@ -60,10 +59,10 @@ router.get('/', function(req, res, next) {
             var htmlString =
 
             '    <div class="form-group">'+
-            '        <label class="text-muted" for="text">cómo empieza?</label>'+
-            '        <textarea class="form-control" id="text" rows="3"></textarea>'+
+            '        <label class="text-muted font-italic" for="text">¿Cómo empieza?</label>'+
+            '        <textarea class="form-control" id="text" maxlength="2000"></textarea>'+
             '    </div>'+
-            '    <button id="enviar" class="btn btn-primary">enviar</button>';
+            '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
 
             res.send(htmlString);
         }else{
@@ -83,7 +82,7 @@ router.get('/', function(req, res, next) {
             htmlString += 
                 '<div class="card">' +
                 '    <div class="card-body">' +
-                '        <p class="card-text">' + docs[index].body + '</p>' +
+                '        <p class="card-text text-dark">' + docs[index].body + '</p>' +
                 '    </div>' +
                 '</div>' +
                 '<br/>';
@@ -92,10 +91,10 @@ router.get('/', function(req, res, next) {
         htmlString +=
     
             '    <div class="form-group">'+
-            '        <label class="text-muted" for="text">cómo sigue?</label>'+
-            '        <textarea class="form-control" id="text" rows="3"></textarea>'+
+            '        <label class="text-muted font-italic" for="text">¿Cómo sigue?</label>'+
+            '        <textarea class="form-control outer" id="text" maxlength="2000"></textarea>'+
             '    </div>'+
-            '    <button id="enviar" class="btn btn-primary">enviar</button>';
+            '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
 
         //console.log(htmlString)
         res.send(htmlString)
