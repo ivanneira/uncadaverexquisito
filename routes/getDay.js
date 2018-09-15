@@ -82,7 +82,7 @@ router.get('/', function(req, res, next) {
             htmlString += 
                 '<div class="card">' +
                 '    <div class="card-body">' +
-                '        <p class="card-text text-dark">' + docs[index].body + '</p>' +
+                '        <p class="card-text text-dark text-justify">' + docs[index].body + '</p>' +
                 '    </div>' +
                 '</div>' +
                 '<br/>';
