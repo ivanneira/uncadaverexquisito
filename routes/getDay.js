@@ -5,6 +5,7 @@ db = new Datastore({filename: 'DATA'});
 
 db.loadDatabase(function(err){
     if(err) console.log(err);
+
   });
 
 
@@ -12,6 +13,8 @@ db.loadDatabase(function(err){
 router.get('/', function(req, res, next) {
 
     var date = req.query.date;
+
+
 
 /*
     db.find({date: date}, function(err, docs){
@@ -51,27 +54,39 @@ router.get('/', function(req, res, next) {
 
         }
 */
-    db.find({date: date}).sort({ timestamp: 1 }).exec(function (err, docs) {
 
-        //console.log(docs)
+    if(date === '01/01/1900'){
 
-        if(docs.length == 0){
-            var htmlString =
+        db.find({}, function (err, docs) {
 
-            '    <div class="form-group">'+
-            '        <label class="text-muted font-italic" for="text">¿Cómo empieza?</label>'+
-            '        <textarea class="form-control" id="text" maxlength="2000" rows="10"></textarea>'+
-            '    </div>'+
-            '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
+            if(err) res.end()
+            
+            res.send(JSON.stringify(docs))
 
-            res.send(htmlString);
-        }else{
-            format(docs);
-        }
+        });
         
-    });
+    }else{
+        db.find({date: date}).sort({ timestamp: 1 }).exec(function (err, docs) {
 
+            //console.log(docs)
 
+            if(docs.length == 0){
+                var htmlString =
+
+                '    <div class="form-group">'+
+                '        <label class="text-muted font-italic" for="text">¿Cómo empieza?</label>'+
+                '        <textarea class="form-control" id="text" maxlength="2000" rows="10"></textarea>'+
+                '    </div>'+
+                '    <button id="enviar" class="btn btn-secondary font-italic">enviar</button>';
+
+                res.send(htmlString);
+            }else{
+                format(docs);
+            }
+            
+        });
+
+    }
 
     function format(docs){
 
@@ -103,7 +118,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
 
     
     var text = req.param('text');
@@ -118,15 +133,43 @@ router.post('/', function(req, res, next) {
         timestamp: timestamp
     }),function(err){
    
-        if(err){
-            res.send(true);
-        }else{
-            res.send(false);
-        }
+        res.send(!!err);
+        
     };
 
     
 });
 
+
+router.delete('/', function(req, res, next) {
+
+    var date = req.param('date');
+    var timestamp = req.param('timestamp');
+
+    if(typeof(date) !== 'undefined'){
+
+        if(typeof(timestamp) !== 'undefined'){
+
+            db.remove({ timestamp: timestamp, date: date }, { multi: false }, function (err, numRemoved) {
+                
+                if(err) res.send(false);
+
+                res.send(numRemoved);
+              });
+
+        }else{
+
+            db.remove({ date: date }, { multi: true }, function (err, numRemoved) {
+                
+                if(err) res.send(false);
+
+                res.send(numRemoved);
+              });
+
+        }
+    }
+
+    
+});
 
 module.exports = router;

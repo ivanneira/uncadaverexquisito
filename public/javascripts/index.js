@@ -12,7 +12,7 @@ $(function(){
             method: 'GET'
         })
         .done(function(data){
-            console.log(data)
+            //console.log(data)
     
             $('.history').empty().append(data);
     
