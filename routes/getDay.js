@@ -146,30 +146,32 @@ router.delete('/', function(req, res, next) {
     var date = req.param('date');
     var timestamp = req.param('timestamp');
 
+    var response = "Nothing removed"
+
     if(typeof(date) !== 'undefined'){
 
         if(typeof(timestamp) !== 'undefined'){
 
             db.remove({ timestamp: timestamp, date: date }, { multi: false }, function (err, numRemoved) {
                 
-                if(err) res.send(false);
+                if(err) response = false;
 
-                res.send(numRemoved);
+                response = numRemoved;
               });
 
         }else{
 
             db.remove({ date: date }, { multi: true }, function (err, numRemoved) {
                 
-                if(err) res.send(false);
+                if(err) response = false;
 
-                res.send(numRemoved);
+                response = numRemoved;
               });
 
         }
     }
 
-    res.send("Nothing removed");
+    res.send(response);
     
 });
 
