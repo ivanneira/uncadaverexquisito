@@ -123,7 +123,7 @@ router.delete('/', function(req, res, next) {
                 
                 if(err) response = false;
 
-                response = numRemoved;
+                res.send(numRemoved);
               });
 
         }else{
@@ -132,13 +132,12 @@ router.delete('/', function(req, res, next) {
                 
                 if(err) response = false;
 
-                response = numRemoved;
+                res.send(numRemoved);
               });
 
         }
     }
 
-    res.send(response);
     
 });
 
