@@ -78,14 +78,20 @@ function refresh(){
                 var htmlString = "";
         
                 for(var index in data){
-        
-                    htmlString += 
+
+                    if(data[index].active == true){
+
+                        htmlString += 
                         '<div class="card">' +
                         '    <div class="card-body">' +
                         '        <p class="card-text text-dark text-justify">' + data[index].body + '</p>' +
                         '    </div>' +
                         '</div>' +
                         '<br/>';
+
+                    }
+        
+
                 }
 
                 $('.history').empty().append(htmlString);
