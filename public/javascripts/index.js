@@ -19,6 +19,8 @@ $(function(){
     
     $('#enviar').click(function(){
 
+        $("#enviar").attr("disabled", "disabled")
+
         if($("#text").val().trim() !== ''){
             
             var data2send = {
@@ -33,6 +35,8 @@ $(function(){
                 data: data2send,
                 dataType: 'json',
                 success: function(res){
+
+                    $("#enviar").attr("disabled", false)
 
                     if(res){
                         
